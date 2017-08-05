@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS_DOM_Task</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+<body>
+	<div>
+		<form id="list_form">
+			Text
+			<input id="input_text" type="text" name="text">
+			Color
+			<input id="input_color" type="text" name="color">
+			Marker
+			<select id="input_marker">
+				<option value="square">Square</option>
+				<option value="disc">Disc</option>
+				<option value="circle">Circle</option>
+			</select>
+			<input type="submit" value="Create">
+		</form>
+		
+	</div>
+	
+	<div>
+		<button type="button" id="button_create_list_item">Create</button>
+		<button type="button" id="button_change_list_item">Change current</button>
+		<button type="button" id="button_delete_list_item">Delete current</button>
+	</div>	
+
+	<div>
+		<ul id="list">
+			<li>Coffee</li>
+			<li>Tea</li>
+			<li>Live</li>
+			<li>Die</li>
+			<li>Repeat</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript" src="jquery-2.2.2.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+ul {
+    padding: 20px;
+    list-style-type: disc;
+}
+
+.li-selected {
+	border: 1px solid red;
+}
+
+li{
+	color: #000000;
+}
