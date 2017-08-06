@@ -1,7 +1,12 @@
-
+class Input_parameters {
+	constructor(text, color, marker){
+		this.text = text;
+		this.color = color;
+		this.marker = marker;
+	}
+}
 
 $(document).ready(function(){
-	$("#list_form").submit(add_list_item);
 
 	$("#button_create_list_item").on("click", add_list_item);
 	$("#button_delete_list_item").on("click", delete_list_item);
@@ -10,22 +15,25 @@ $(document).ready(function(){
 	$("ul").on("click", mark_selected);
 });
 
-
-function mark_selected( event){
+function mark_selected(event){
 	remove_selected_class_list();
 
-	if ( $(event.target).is("li"))
-	{
+	if ( $(event.target).is("li")){
 		$(event.target).addClass("li-selected");
-		var text = $(event.target).text();
-		var color = $(event.target).css("color");
-		var marker = $(event.target).css("list-style-type");
 
-		$("#input_text").val(text);
-		$("#input_color").val(color);
-		$("#input_marker").val(marker);
+		var input_parameters = new Input_parameters($(event.target).text(), 
+			$(event.target).css("color"), 
+			$(event.target).css("list-style-type"));
+
+		update_input_fields(input_parameters);
 	}
 	
+}
+
+function update_input_fields(input_parameters){
+	$("#input_text").val(input_parameters.text);
+	$("#input_color").val(input_parameters.color);
+	$("#input_marker").val(input_parameters.marker);
 }
 
 function remove_selected_class_list(){
@@ -35,8 +43,8 @@ function remove_selected_class_list(){
 function delete_list_item(event){
 	if(is_selected_item_exist())
 	{
-		$('.li-selected').off("click", mark_selected);
-		$('.li-selected').remove();
+		$(".li-selected").off("click", mark_selected);
+		$(".li-selected").remove();
 	}
 	else{
 		alert("Please select list item.");
@@ -49,22 +57,29 @@ function is_selected_item_exist(){
 
 function add_list_item(event){
 	event.preventDefault();
-	var text = $("#input_text").val();
-	var color = $("#input_color").val();
-	var marker = $("#input_marker").val();
 
-	$('#list').append('<li>'+text+'</li>');
-	$("li:last").css("color", color).css("list-style-type", marker);
+	var input_parameters = new Input_parameters($("#input_text").val(), 
+			$("#input_color").val(), 
+			$("#input_marker").val());
+
+	$('#list').append('<li>'+input_parameters.text+'</li>');
+	$("li:last")
+		.css("color", input_parameters.color)
+		.css("list-style-type", input_parameters.marker);
 }
 
 function change_list_item(event){
 	if(is_selected_item_exist())
 	{
-		var text = $("#input_text").val();
-		var color = $("#input_color").val();
-		var marker = $("#input_marker").val();
-		$('.li-selected').css("color", color).css("list-style-type", marker).text(text);
-		}
+		var input_parameters = new Input_parameters($("#input_text").val(), 
+			$("#input_color").val(), 
+			$("#input_marker").val());
+
+		$(".li-selected")
+			.css("color", input_parameters.color)
+			.css("list-style-type", input_parameters.marker)
+			.text(input_parameters.text);
+	}
 	else{
 		alert("Please select list item.");
 	}
