@@ -6,27 +6,30 @@ $(document).ready(function(){
 	$("#button_create_list_item").on("click", add_list_item);
 	$("#button_delete_list_item").on("click", delete_list_item);
 	$("#button_change_list_item").on("click", change_list_item);
+
+	$("ul").on("click", mark_selected);
 });
 
-$(document).ready(function() {
-	$("li").on("click", mark_selected);
-});
 
-
-function mark_selected( ){
+function mark_selected( event){
 	remove_selected_class_list();
-	$(this).addClass("li-selected");
-	var text = $(this).text();
-	var color = $(this).css("color");
-	var marker = $(this).css("list-style-type");
+
+	if ( $(event.target).is("li"))
+	{
+		$(event.target).addClass("li-selected");
+		var text = $(event.target).text();
+		var color = $(event.target).css("color");
+		var marker = $(event.target).css("list-style-type");
+
+		$("#input_text").val(text);
+		$("#input_color").val(color);
+		$("#input_marker").val(marker);
+	}
 	
-	$("#input_text").val(text);
-	$("#input_color").val(color);
-	$("#input_marker").val(marker);
 }
 
 function remove_selected_class_list(){
-	$("li").removeClass("li-selected");
+	$("li.li-selected").removeClass("li-selected");
 }
 
 function delete_list_item(event){
@@ -51,12 +54,18 @@ function add_list_item(event){
 	var marker = $("#input_marker").val();
 
 	$('#list').append('<li>'+text+'</li>');
-	$("li:last").on("click", mark_selected).css("color", color).css("list-style-type", marker);
+	$("li:last").css("color", color).css("list-style-type", marker);
 }
 
 function change_list_item(event){
-	var text = $("#input_text").val();
-	var color = $("#input_color").val();
-	var marker = $("#input_marker").val();
-	$('.li-selected').css("color", color).css("list-style-type", marker).text(text);
+	if(is_selected_item_exist())
+	{
+		var text = $("#input_text").val();
+		var color = $("#input_color").val();
+		var marker = $("#input_marker").val();
+		$('.li-selected').css("color", color).css("list-style-type", marker).text(text);
+		}
+	else{
+		alert("Please select list item.");
+	}
 }
