@@ -2,7 +2,7 @@
 {
 
 	var input_parameters = new function() {
-		
+
 		this.update_fields = function(text, color, marker) {
 			this.text = text;
 			this.color = color;
@@ -31,14 +31,14 @@
 		
 	}
 
+	function remove_selected_class_list(){
+		$("li.li-selected").removeClass("li-selected");
+	}
+
 	function update_input_fields(input_parameters){
 		$("#input_text").val(input_parameters.text);
 		$("#input_color").val(input_parameters.color);
 		$("#input_marker").val(input_parameters.marker);
-	}
-
-	function remove_selected_class_list(){
-		$("li.li-selected").removeClass("li-selected");
 	}
 
 	function delete_list_item(event){
@@ -57,13 +57,11 @@
 	}
 
 	function add_list_item(event){
-		event.preventDefault();
-
 		input_parameters.update_fields($("#input_text").val(), 
 				$("#input_color").val(), 
 				$("#input_marker").val());
 
-		$('#list').append('<li>'+input_parameters.text+'</li>');
+		$('#list').append($('<li>').append(input_parameters.text));
 		$("li:last")
 			.css("color", input_parameters.color)
 			.css("list-style-type", input_parameters.marker);
